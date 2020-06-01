@@ -67,9 +67,9 @@ class multiple3And5Tests(unittest.TestCase):
     # test for a large number
     def test_thirtyeight_returns_358(self):
         self.assertEqual(countMultiples3And5(38),329)
-    # test non integer number
-    #def test_noninteger_returns_multiples(self):
-    #    self.assertEqual(countMultiples3And5(10.5),23) 
+    # test that the code works with a non integer number
+    def test_noninteger_returns_multiples(self):
+        self.assertEqual(countMultiples3And5(9.5),23) 
 
     # test single t34
     #def test_one_t34_costs_99(self):
