@@ -1,0 +1,32 @@
+test.describe("Multiples of 3 and 5")
+
+test.it("should handle basic cases")
+test.assert_equals(solution(10), 23)
+test.assert_equals(solution(4),3)
+test.assert_equals(solution(0),0)
+test.assert_equals(solution(3),0)
+test.assert_equals(solution(5),3)
+test.assert_equals(solution(6),8)
+test.assert_equals(solution(38),329)
+test.assert_equals(solution(-38),-329)
+test.assert_equals(solution(1),0)   
+
+# test that error message is produced when an TypeError occurs
+# A TypeError should occur when number is not an integer
+test.describe("Error testing for Multiples of 3 and 5")
+test.it("should raise an error if number is not an integer")
+test.expect_error("Please provide an integer number", solution, exception=TypeError)
+
+  # error handling tests
+  # test that an error is raised if a non-integer number is 
+  # provided
+  # def test_noninteger_raises_error(self):
+  #     with self.assertRaises(TypeError):
+  #         countMultiples3And5(9.5) 
+  #     with self.assertRaises(TypeError):
+  #         countMultiples3And5("hello")
+  #     with self.assertRaises(TypeError):
+  #         countMultiples3And5([6,7])
+  #     with self.assertRaises(TypeError):
+ #         countMultiples3And5(True)
+    
