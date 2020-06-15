@@ -17,8 +17,29 @@ def array_diff(a, b):
     # remove all elements in list b from list a
     # if an element in list b occurs in list a more than
     # once remove all instances from list a
-    difference =[]
-    return difference
+    # create a new list to store the result of subtracting items in 
+    # list b from list a, initially this list contains the same
+    # items as a
+    # Note: need to use copy here to copy
+    # list a by value so that result_list can
+    # be modified without a being modified
+    result_list = a.copy()
+
+    # loop through list b and remove each item in list b from list a
+    # if the values in b are present in a
+    for x in b:
+        for y in a:
+             if x == y: 
+                result_list.remove(x)
+
+    # alternative method of looping through the lists   
+    # for x in range(len(b)):
+    #    for y in range(len(a)):
+    #        if b[x] == a[y]:
+    #            result_list.remove(b[x])
+
+    return result_list
+    
 
 class arrayDiff(unittest.TestCase):
     # kata tests
@@ -29,48 +50,30 @@ class arrayDiff(unittest.TestCase):
     # Test.assert_equals(array_diff([1,2,2], []), [1,2,2], "a was [1,2,2], b was [], expected [1,2,2]")
     # Test.assert_equals(array_diff([], [1,2]), [], "a was [], b was [1,2], expected []")
 
-    # test number is zero
-    def test_number_zero_returns_zero(self):
-       self.assertEqual(array_diff([1,2],[1]),[2])
-    # test for single multiple of 3
-    #def test_four_returns_three(self):
-    #    self.assertEqual(array_diff(4),3)
-    # test number three should return total of zero
-    #def test_three_returns_zero(self):
-    #   self.assertEqual(array_diff(3),0)
-    # test number five should only return 3, not include 5
-    #def test_five_returns_three(self):
-    #    self.assertEqual(array_diff(5),3)
-    # test for a single multiple of 5 (will also have multiple of 3)
-    # test six
-    #def test_five_returns_eight(self):
-    #    self.assertEqual(countMultiples3And5(6),8)
-    # test in the kata spec
-    # number = 10, return value = 23
-    #def test_ten_returns_twentythree(self):
-    #    self.assertEqual(countMultiples3And5(10),23)
-    # test for a large number
-    #def test_thirtyeight_returns_358(self):
-    #    self.assertEqual(countMultiples3And5(38),329)
-    # test negative number
-    #def test_minusthirtyeight_returns_minus358(self):
-    #    self.assertEqual(countMultiples3And5(-38),-329)
-    # test number = 1
-    #def test_one_returns_zero(self):
-    #    self.assertEqual(countMultiples3And5(1),0)
-
-    # error handling tests
-    # test that an error is raised if a non-integer number is 
-    # provided
-    #def test_noninteger_raises_error(self):
-    #    with self.assertRaises(TypeError):
-    #        countMultiples3And5(9.5) 
-    #    with self.assertRaises(TypeError):
-    #        countMultiples3And5("hello")
-    #    with self.assertRaises(TypeError):
-    #        countMultiples3And5([6,7])
-    #    with self.assertRaises(TypeError):
-    #        countMultiples3And5(True)
+    # test that one number in array b can be removed from array a
+    def test_one_number_removed_from_a(self):
+        self.assertEqual(array_diff([1,2],[1]),[2])
+    # test repeated number in array a is retained and single no. in b removed
+    def test_one_number_removed_a_retains_multiple_numbers(self):
+        self.assertEqual(array_diff([1,2,2],[1]),[2,2])
+    # test repeated number in a is removed if it is present as a single number in b
+    def test_multiple_numbers_removed_from_a_single_number_in_b(self):
+        self.assertEqual(array_diff([1,2,2],[2]),[1])
+    # test two numbers present in b and a are both removed leaving empty list
+    def test_two_number_in_b_both_removed(self):
+        self.assertEqual(array_diff([1,2], [1,2]),[])
+    # test blank list to remove, nothing is removed from a
+    def test_no_numbers_to_remove_a_remains_same(self):
+        self.assertEqual(array_diff([1,2,2],[]),[1,2,2])
+    # test number not present in a but is in b
+    def test_number_in_b_not_in_a(self):
+        self.assertEqual(array_diff([3,3,4,5,3],[10]),[3,3,4,5,3])
+    # test a contains nothing, a stays the same
+    def test_no_numbers_in_a_stays_same(self):
+        self.assertEqual(array_diff([],[1,2]),[])
+    # test works with characters as well as numbers
+    def test_non_numeric_characters(self):
+        self.assertEqual(array_diff([1,"e",5,"j"],[1,"e"]),[5,"j"])
     
 if __name__ == "__main__":
     unittest.main()
