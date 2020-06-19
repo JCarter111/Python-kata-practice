@@ -20,25 +20,30 @@ def array_diff(a, b):
     # create a new list to store the result of subtracting items in 
     # list b from list a, initially this list contains the same
     # items as a
-    # Note: need to use copy here to copy
-    # list a by value so that result_list can
-    # be modified without a being modified
-    result_list = a.copy()
 
     # loop through list b and remove each item in list b from list a
     # if the values in b are present in a
-    for x in b:
-        for y in a:
-             if x == y: 
-                result_list.remove(x)
 
+    # initial coding attempt failed if b contains same number to remove twice
+    # when attempt to remove from a is made
+    # value has already been removed from a and error results
+    # new code using in statement to check whether value in b still
+    # exists in a
+
+    for bitem in b:
+        # whilst there is one or more
+        # instances of bitem in result_list
+        # remove bitem from the result list
+        # if bitem is not in the result_list the loop below
+        # will not be run
+        while bitem in a:
+            a.remove(bitem)
     # alternative method of looping through the lists   
-    # for x in range(len(b)):
-    #    for y in range(len(a)):
-    #        if b[x] == a[y]:
-    #            result_list.remove(b[x])
+    # for bitem in range(len(b)):
+    # while b[bitem] in result_list:
+    #   result_list.remove(b[bitem])
 
-    return result_list
+    return a
     
 
 class arrayDiff(unittest.TestCase):
@@ -74,6 +79,9 @@ class arrayDiff(unittest.TestCase):
     # test works with characters as well as numbers
     def test_non_numeric_characters(self):
         self.assertEqual(array_diff([1,"e",5,"j"],[1,"e"]),[5,"j"])
+    # test works if b contains repeated number
+    def test_b_contains_repeated_number(self):
+        self.assertEqual(array_diff([2,34,7],[2,34,34]),[7])
     
 if __name__ == "__main__":
     unittest.main()
