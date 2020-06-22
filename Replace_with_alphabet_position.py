@@ -11,15 +11,26 @@ def alphabet_position(text):
 
     # convert each character in text to lower case
     # remove spaces from text string - replace function
-    # only need to convert alphabetic characters, ignore e.g. "."
+    # only need to convert alphabetic characters,
+    # ignore punctuation and spaces e.g. ".", " " "
+    
+    # first check that text is a string
+    # raise an error if text is not a string
+    if not(isinstance(text,str)):
+       raise TypeError("Please provide a text string")
+
     # match against lower case alphabet list
     # find position in the list of the match and use this to determine 
     # alphabet position, which is position in list + 1 
     # as list position starts from 0
-
     lookupString = "abcdefghijklmnopqrstuvwxyz"
+
+    # create blank list for storing alphabet positions
     returnList =[]
+    # create blank return string, this will contain final
+    # alphabet position string with spaces between alphabet position strings
     returnString = ""
+
     if len(text) > 0:
         for item in text:
             # use the look up string to find the position in the alphabet
@@ -68,7 +79,8 @@ class alphabetPosition(unittest.TestCase):
     def test_multiple_mixed_characters_spaces_punctuation(self):
         self.assertEqual(alphabet_position("The sunset sets at twelve o' clock."),"20 8 5 19 21 14 19 5 20 19 5 20 19 1 20 20 23 5 12 22 5 15 3 12 15 3 11")
         self.assertEqual(alphabet_position("The narwhal bacons at midnight."),"20 8 5 14 1 18 23 8 1 12 2 1 3 15 14 19 1 20 13 9 4 14 9 7 8 20")
-    
+        self.assertEqual(alphabet_position("The cat"),"20 8 5 3 1 20")
+        
     # test that a text string containing just a space does not return any value
     def test_numbers_return_blank(self):
         number_test = ""
@@ -77,6 +89,18 @@ class alphabetPosition(unittest.TestCase):
         print(number_test)
         self.assertEqual(alphabet_position(number_test),"")
 
+    # test error handling if text is not a string
+    # test that an error is raised if a non-integer number is 
+    # provided
+    def test_text_not_string_raises_error(self):
+        with self.assertRaises(TypeError):
+            alphabet_position(9.5) 
+        with self.assertRaises(TypeError):
+            alphabet_position(7)
+        with self.assertRaises(TypeError):
+            alphabet_position([6,7])
+        with self.assertRaises(TypeError):
+            alphabet_position(True)
 
 if __name__ == "__main__":
     unittest.main()
