@@ -13,11 +13,18 @@ def square_digits(num):
     # return these as an integer
     # e.g. num = 823, return 1649
     # placeholder pass
+    # number must be an integer
+    # integer number could be negative
+    # if number is not an integer
+    # raise an error
+    # note Boolean value for number is interpreted as 0 or 1
+    # raise error if Boolean value provided
+    if not(isinstance(num,int)):
+        raise TypeError("Please provide an integer number")
     # num is an integer, convert to list or string
     # use list of string to find every square value
-    squares = [str(int(x)**2) for x in str(num)]
-    squares_string = int("".join(squares))
-    return squares_string
+    squares = int("".join([str(int(x)**2) for x in str(num)]))
+    return squares
 
 class squareDigits(unittest.TestCase):
     
@@ -27,9 +34,26 @@ class squareDigits(unittest.TestCase):
     # test square is returned for one integer
     def test_one_integer_square_returned(self):
         self.assertEqual(square_digits(2),4)
-    # test string of integers returns squares
-    def test_integer_string_returns_squares(self):
+    # test larger integer returns squares
+    def test_integer_returns_squares(self):
         self.assertEqual(square_digits(9119),811181)
+    # test what happens if num is larger than the maximum integer values
+    def test_large_number_returns_squares(self):
+        self.assertEqual(square_digits(21574864912),412549166436168114)
+    # error handling tests
+    # test that an error is raised if a non-integer number is 
+    # provided
+    def test_noninteger_raises_error(self):
+        with self.assertRaises(TypeError):
+            square_digits(9.5) 
+        with self.assertRaises(TypeError):
+            square_digits("hello")
+        with self.assertRaises(TypeError):
+            square_digits([6,7])
+        with self.assertRaises(TypeError):
+            square_digits(True) 
+        #with self.assertRaises(TypeError):
+        #    square_digits(2323232323231212312312424)
 
 if __name__ == "__main__":
     unittest.main()
