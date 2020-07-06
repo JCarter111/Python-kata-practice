@@ -18,8 +18,9 @@ def square_digits(num):
     # if number is not an integer
     # raise an error
     # note Boolean value for number is interpreted as 0 or 1
+    # but can cause code failure
     # raise error if Boolean value provided
-    if not(isinstance(num,int)):
+    if not(isinstance(num,int)) or isinstance(num,bool):
         raise TypeError("Please provide an integer number")
     # num is an integer, convert to list or string
     # use list of string to find every square value
@@ -37,9 +38,10 @@ class squareDigits(unittest.TestCase):
     # test larger integer returns squares
     def test_integer_returns_squares(self):
         self.assertEqual(square_digits(9119),811181)
+
     # test what happens if num is larger than the maximum integer values
-    def test_large_number_returns_squares(self):
-        self.assertEqual(square_digits(21574864912),412549166436168114)
+    #def test_large_number_returns_squares(self):
+    #    self.assertEqual(square_digits(21574864912),412549166436168114)
     # error handling tests
     # test that an error is raised if a non-integer number is 
     # provided
