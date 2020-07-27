@@ -11,13 +11,17 @@ def is_prime(num):
 # need to be able to check negative numbers to determine 
 # whether they are prime numbers
 
+# raise an error if an integer is not provided
+    if not(isinstance(num,int)) or isinstance(num,bool):
+        raise TypeError("Please provide an integer number")
+
     # set default return value to False, number is not a prime number
     numIsPrime = False
 
-    # zero, 1, and -1 are not prime numbers
+    # zero, 1, and any integer less than zero are not prime numbers
     # only need to check numbers that are greater than or equal
-    # to two or less than or equal to minus two
-    if  num != 0 and abs(num) != 1:
+    # to two 
+    if  num >= 2:
         # check every value from 2 to num
         # if num divided by any value of x does
         # not leave a remainder then num is not a prime
@@ -66,31 +70,44 @@ def is_prime(num):
 class isPrime(unittest.TestCase):
     
     # tests from kata
-    # test.assert_equals(square_digits(9119), 811181)
-    
+
+    # basic tests
     # test 0 is not a prime number
-    def test_zero_not_prime(self):
+    def basic_tests(self):
         self.assertEqual(is_prime(0),False)
-    # test 1 is not a prime number
-    def test_one_not_prime(self):
         self.assertEqual(is_prime(1),False)
-    # test 2 is a prime number
-    def test_two_is_prime(self):
         self.assertEqual(is_prime(2),True)
+        self.assertEqual(is_prime(73),True)
+        self.assertEqual(is_prime(75),False)
+        self.assertEqual(is_prime(-1),False)
+
+    # test prime
+    def test_prime(self):
+        self.assertEqual(is_prime(3), True)
+        self.assertEqual(is_prime(5), True)
+        self.assertEqual(is_prime(7),True)
+        self.assertEqual(is_prime(41),True)
+        self.assertEqual(is_prime(5099),True)
+
+    # test not prime
+    def test_not_prime(self):
+        self.assertEqual(is_prime(4),False)
+        self.assertEqual(is_prime(6),False)
+        self.assertEqual(is_prime(8),False)
+        self.assertEqual(is_prime(9),False)
+        self.assertEqual(is_prime(45),False)
+        self.assertEqual(is_prime(-5),False)
+        self.assertEqual(is_prime(-8),False)
+        self.assertEqual(is_prime(-41),False)
+
     # error handling tests
     # test that an error is raised if a non-integer number is 
     # provided
-    #def test_noninteger_raises_error(self):
-    #    with self.assertRaises(TypeError):
-    #        square_digits(9.5) 
-    #    with self.assertRaises(TypeError):
-    #        square_digits("hello")
-    #    with self.assertRaises(TypeError):
-    #        square_digits([6,7])
-    #   with self.assertRaises(TypeError):
-    #        square_digits(True) 
-        #with self.assertRaises(TypeError):
-        #    square_digits(2323232323231212312312424)
-
+    def test_noninteger_raises_error(self):
+        with self.assertRaises(TypeError):
+            is_prime(9.5) 
+        with self.assertRaises(TypeError):
+            is_prime("hello")
+ 
 if __name__ == "__main__":
     unittest.main()
