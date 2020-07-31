@@ -1,37 +1,56 @@
 import unittest
-
 def is_prime(num):
+
+    import math
 # return true if num is a prime number
 # return false if num is not a prime number
 # a prime number (or a prime) is a natural number
 # greater than 1 that has no positive divisors other than 1 and itself.
+
+# numbers that do not need checking
+# 1. negative numbers
+# 2. zero
+# 3. one
+# 4. even numbers
+# 5. anything greater than num/2 does not need checking
+# e.g. num = 17, divide 17 by odd values below 
+# 17/2 = 8.5 rounded down
+# to 8
+# only divide by 3,5,7
+
 # check values in the range 2 to num-1
 # if any num is exactly divisible by any value in this range
 # then num is not a prime number
-# need to be able to check negative numbers to determine 
-# whether they are prime numbers
 
-# raise an error if an integer is not provided
+    # raise an error if an integer is not provided
     if not(isinstance(num,int)) or isinstance(num,bool):
         raise TypeError("Please provide an integer number")
 
     # set default return value to False, number is not a prime number
     numIsPrime = False
 
-    # zero, 1, and any integer less than zero are not prime numbers
+    # zero, 1 and any integer less than zero are not prime numbers
     # only need to check numbers that are greater than or equal
     # to two 
     if  num >= 2:
-        # check every value from 2 to num
+        # check for division by every odd number, x, below the value of num
         # if num divided by any value of x does
         # not leave a remainder then num is not a prime
         # number
         # set default to return True, number is a prime number
         numIsPrime = True
 
-        for x in range(2,num):
-            if num % x == 0: numIsPrime = False
-
+        # any even numbers, except 2 are not prime numbers
+        if (num > 2 and num % 2 == 0): 
+            numIsPrime = False
+        else:
+            # divide num by odd numbers up to and including the square root of num
+            # e.g. num = 17, sqrt(num)= 4.12
+            # divide 17 by odd numbers 3 and above and up to 4.12
+            # e.g. num = 25, sqrt(num)= 5
+            # divide 25 by odd numbers 3 and up to and including 5
+            for x in range(3,int(math.sqrt(num)+1),2):
+                if num % x == 0: numIsPrime = False
     return numIsPrime
 # kata tests
 #@Test.describe("Basic")
